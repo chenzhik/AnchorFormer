@@ -39,8 +39,6 @@ bash ./extensions/install.sh
 3. Standard PointNet++ lib 
 (ref to "https://github.com/erikwijmans/Pointnet2_PyTorch")
 
-
-
 ## train
 ```
 CUDA_VISIBLE_DEVICES=${GPUS} python -m torch.distributed.launch --master_port=${PORT} --nproc_per_node=${NGPUS} main.py --launcher pytorch --sync_bn ${PY_ARGS}
