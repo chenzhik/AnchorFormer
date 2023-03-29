@@ -11,19 +11,7 @@ The python version is 3.8.13.
 The GPU is NVIDIA Tesla V100 (16GB) and the CUDA version is CUDA 10.2.
 
 # Note
-This repository includes the pure code and configuration files of AnchorFormer model in the paper. 
-
-# The structure mentioned in the paper
-```
-Feature Extraction Module: ./models/EdgeConv.py line 8-107
-
-Transformer Encoder Block: ./models/Transformer.py line 161-208
-
-Point Scattering Module: ./models/Transformer.py line 334-337
-
-Transformer Decoder Block: ./models/Transformer.py line 210-239
-
-Point Morphing Module: ./models/Morphing.py line 147-184
+This repository includes the pure code of AnchorFormer model in the paper. 
 ```
 
 # Usage
