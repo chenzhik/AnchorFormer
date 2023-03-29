@@ -1,4 +1,5 @@
 # AnchorFormer 
+This repository includes the pure code of AnchorFormer model in the paper. 
 
 # Environment
 
@@ -10,27 +11,10 @@ The python version is 3.8.13.
 
 The GPU is NVIDIA Tesla V100 (16GB) and the CUDA version is CUDA 10.2.
 
-# Note
-This repository includes the pure code of AnchorFormer model in the paper. 
-```
-
-# Usage
 ## Install
 1. Requirements
 ```
-argparse
-easydict
-h5py
-matplotlib
-numpy
-open3d==0.9
-opencv-python
-pyyaml
-scipy
-tensorboardX
-timm==0.4.5 
-tqdm
-transforms3d
+pip install -r requirements.txt
 ```
 2. c++ extensions
 ```
@@ -39,6 +23,7 @@ bash ./extensions/install.sh
 3. Standard PointNet++ lib 
 (ref to "https://github.com/erikwijmans/Pointnet2_PyTorch")
 
+# Usage
 ## train
 ```
 CUDA_VISIBLE_DEVICES=${GPUS} python -m torch.distributed.launch --master_port=${PORT} --nproc_per_node=${NGPUS} main.py --launcher pytorch --sync_bn ${PY_ARGS}
