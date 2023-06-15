@@ -150,7 +150,7 @@ class PointMorphing(nn.Module):
 
         self.in_channel = in_channel
         self.step = step
-
+        # to do
         a = torch.linspace(-1., 1., steps=step, dtype=torch.float).view(1, step).expand(step, step).reshape(1, -1)
         b = torch.linspace(-1., 1., steps=step, dtype=torch.float).view(step, 1).expand(step, step).reshape(1, -1)
         self.folding_seed = torch.cat([a, b], dim=0).cuda()
