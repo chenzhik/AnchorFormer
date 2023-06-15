@@ -23,7 +23,7 @@ dataset : {
             others: {subset: 'test'}}}
             
 model : {
-  NAME: AnchorFormer, num_pred: 16384, num_query: 256, knn_layer: 0, trans_dim: 384, num_encoder_blk: 8, num_decoder_blk: 6, sparse_expansion_lambda: 0.5, dense_expansion_lambda: 1.2}
+  NAME: AnchorFormer, num_pred: 14336, num_query: 256, knn_layer: 0, trans_dim: 384, num_encoder_blk: 8, num_decoder_blk: 6, sparse_expansion_lambda: 0.5, dense_expansion_lambda: 1.2}
 
 loss : {
   sparse_loss_weight: 1.0,
