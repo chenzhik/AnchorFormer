@@ -1,6 +1,9 @@
 # AnchorFormer 
 This repository includes the pure code of AnchorFormer model in the paper. 
 
+# ! UPDATE
+* 2023-06-15: update model files to support arbitrary output points.
+
 # Environment
 
 These model are implemented in PyTorch (1.8.1+cu102) version. 
