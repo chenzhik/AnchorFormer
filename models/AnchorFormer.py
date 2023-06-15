@@ -41,6 +41,8 @@ class AnchorFormer(nn.Module):
         )
         self.reduce_map_global = nn.Linear(1024, self.trans_dim)
         self.reduce_map_local = nn.Linear(self.trans_dim + 3, self.trans_dim)
+        
+        self.include_input = False
         self.build_loss_func()
 
     def build_loss_func(self):
@@ -82,7 +84,7 @@ class AnchorFormer(nn.Module):
     
         inp_sparse = fps(xyz, self.num_query)
         coarse_point_cloud = torch.cat([coarse_point_cloud, inp_sparse], dim=1).contiguous()
-        rebuild_points = torch.cat([rebuild_points, xyz],dim=1).contiguous()
+        if self.include_input: rebuild_points = torch.cat([rebuild_points, xyz],dim=1).contiguous()
 
         ret = (coarse_point_cloud, rebuild_points)
         return ret
