@@ -28,10 +28,12 @@ class AnchorFormer(nn.Module):
         self.num_decoder_blk = config.num_decoder_blk # 8
         self.sparse_expansion_lambda = config.sparse_expansion_lambda
         self.dense_expansion_lambda = config.dense_expansion_lambda
-
+        self.up_ratio = self.num_pred//self.num_query
         self.fold_step = int(pow(self.num_pred//self.num_query, 0.5) + 0.5)
+        
         self.base_model = AnchorTransformer(in_chans = 3, embed_dim = self.trans_dim, depth = [self.num_encoder_blk, self.num_decoder_blk], num_query = self.num_query)
-        self.upsample_net = PointMorphing(self.trans_dim, step = self.fold_step, hidden_dim = 256)  # rebuild a cluster point 
+        # self.upsample_net = PointMorphing(self.trans_dim, step = self.fold_step, hidden_dim = 256)  # rebuild a cluster point 
+        self.upsample_net = PointMorphing(self.trans_dim, step = self.up_ratio, hidden_dim = 256)  # rebuild a cluster point 
 
         self.increase_dim = nn.Sequential(
             nn.Conv1d(self.trans_dim, 1024, 1),
