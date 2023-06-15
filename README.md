@@ -1,7 +1,7 @@
 # AnchorFormer 
 This repository includes the pure code of AnchorFormer model in the paper. 
 
-# ! UPDATE
+# UPDATE
 * 2023-06-15: update model files to support arbitrary output points.
 
 # Environment
