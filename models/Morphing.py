@@ -145,15 +145,30 @@ def assign_adain_deviations(adain_params, model):
                 adain_params = adain_params[:, m.num_features :]
                 
 class PointMorphing(nn.Module):
-    def __init__(self, in_channel, step, hidden_dim = 512):
+    def __init__(self, in_channel, up_ratio, hidden_dim = 512):
         super().__init__()
 
         self.in_channel = in_channel
-        self.step = step
-        # to do
-        a = torch.linspace(-1., 1., steps=step, dtype=torch.float).view(1, step).expand(step, step).reshape(1, -1)
-        b = torch.linspace(-1., 1., steps=step, dtype=torch.float).view(step, 1).expand(step, step).reshape(1, -1)
-        self.folding_seed = torch.cat([a, b], dim=0).cuda()
+        # self.step = step
+        self.up_ratio = up_ratio
+
+        sqrted = int(math.sqrt(up_ratio)) + 1
+        for i in range(1, sqrted + 1).__reversed__():
+            if (up_ratio % i) == 0:
+                num_x = i
+                num_y = up_ratio // i
+                break
+
+        grid_x = torch.linspace(-0.2, 0.2, steps=num_x)
+        grid_y = torch.linspace(-0.2, 0.2, steps=num_y)
+
+        x, y = torch.meshgrid(grid_x, grid_y)  # x, y shape: (2, 1)
+        self.grid = torch.stack([x, y], dim=-1).view(-1, 2)  # (2, 2)
+        self.folding_seed = self.grid.cuda()
+        
+        # a = torch.linspace(-1., 1., steps=step, dtype=torch.float).view(1, step).expand(step, step).reshape(1, -1)
+        # b = torch.linspace(-1., 1., steps=step, dtype=torch.float).view(step, 1).expand(step, step).reshape(1, -1)
+        # self.folding_seed = torch.cat([a, b], dim=0).cuda()
 
         self.dec = GridDecoder(2, hidden_dim)
 
