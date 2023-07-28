@@ -55,4 +55,5 @@ example:
 ```
 CUDA_VISIBLE_DEVICES=0 python main --ckpts {CKPT_PATH}.pth --config ./cfgs/PCN_models/AnchorFormer.yaml --exp_name test_ckpt
 ```
-![model](https://drive.google.com/file/d/19GQpm5-LRiWQl4qWR_c5gnQ8KHXOSHAe/view?usp=sharing)
+
+[model](https://drive.google.com/file/d/19GQpm5-LRiWQl4qWR_c5gnQ8KHXOSHAe/view?usp=sharing)
