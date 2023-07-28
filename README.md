@@ -2,6 +2,7 @@
 This repository includes the pure code of AnchorFormer model in the paper. 
 
 # UPDATE
+* 2023-07-28: update a pretrained model on PCN.
 * 2023-06-15: update model files to support arbitrary output points.
 
 # Environment
@@ -54,3 +55,4 @@ example:
 ```
 CUDA_VISIBLE_DEVICES=0 python main --ckpts {CKPT_PATH}.pth --config ./cfgs/PCN_models/AnchorFormer.yaml --exp_name test_ckpt
 ```
+![model](https://drive.google.com/file/d/19GQpm5-LRiWQl4qWR_c5gnQ8KHXOSHAe/view?usp=sharing)
