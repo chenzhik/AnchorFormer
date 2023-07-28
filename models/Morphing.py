@@ -144,7 +144,7 @@ def assign_adain_deviations(adain_params, model):
             if adain_params.size(1) > m.num_features:
                 adain_params = adain_params[:, m.num_features :]
                 
-class PointMorphing(nn.Module):
+class ArbitraryPointMorphing(nn.Module):
     def __init__(self, in_channel, up_ratio, hidden_dim = 512):
         super().__init__()
 
@@ -169,6 +169,45 @@ class PointMorphing(nn.Module):
         # a = torch.linspace(-1., 1., steps=step, dtype=torch.float).view(1, step).expand(step, step).reshape(1, -1)
         # b = torch.linspace(-1., 1., steps=step, dtype=torch.float).view(step, 1).expand(step, step).reshape(1, -1)
         # self.folding_seed = torch.cat([a, b], dim=0).cuda()
+
+        self.dec = GridDecoder(2, hidden_dim)
+
+        # MLP to generate AdaIN parameters
+        self.mlp_global = nn.Sequential(
+            nn.Linear(in_channel, in_channel),
+            nn.ReLU(),
+            nn.Linear(in_channel, get_num_adain_mean_or_std(self.dec)),
+        )
+        self.mlp_local = nn.Sequential(
+            nn.Linear(in_channel, in_channel),
+            nn.ReLU(),
+            nn.Linear(in_channel, get_num_adain_mean_or_std(self.dec)),
+        )
+
+    def forward(self, x, q):
+        
+        num_sample = self.step * self.step
+        bs = x.size(0) 
+        seed = self.folding_seed.view(1, 2, num_sample).expand(bs, 2, num_sample).to(x.device) # b 2 n
+
+        adain_deviation = self.mlp_global(x)
+        adain_mean = self.mlp_local(q)
+        assign_adain_deviations(adain_deviation, self.dec)
+        assign_adain_means(adain_mean, self.dec)
+        
+        fd = self.dec(seed)
+        return fd
+
+class PointMorphing(nn.Module):
+    def __init__(self, in_channel, step, hidden_dim = 512):
+        super().__init__()
+
+        self.in_channel = in_channel
+        self.step = step
+
+        a = torch.linspace(-1., 1., steps=step, dtype=torch.float).view(1, step).expand(step, step).reshape(1, -1)
+        b = torch.linspace(-1., 1., steps=step, dtype=torch.float).view(step, 1).expand(step, step).reshape(1, -1)
+        self.folding_seed = torch.cat([a, b], dim=0).cuda()
 
         self.dec = GridDecoder(2, hidden_dim)
 
