@@ -28,7 +28,7 @@ bash ./extensions/install.sh
 (ref to "https://github.com/erikwijmans/Pointnet2_PyTorch")
 
 # Usage
-## train
+## train [trained PCN model]([https://drive.google.com/file/d/19GQpm5-LRiWQl4qWR_c5gnQ8KHXOSHAe/view?usp=sharing](https://drive.google.com/file/d/19GQpm5-LRiWQl4qWR_c5gnQ8KHXOSHAe/view?usp=sharing))
 ```
 CUDA_VISIBLE_DEVICES=${GPUS} python -m torch.distributed.launch --master_port=${PORT} --nproc_per_node=${NGPUS} main.py --launcher pytorch --sync_bn ${PY_ARGS}
 ```
@@ -56,4 +56,3 @@ example:
 CUDA_VISIBLE_DEVICES=0 python main --ckpts {CKPT_PATH}.pth --config ./cfgs/PCN_models/AnchorFormer.yaml --exp_name test_ckpt
 ```
 
-[a trained PCN model](https://drive.google.com/file/d/19GQpm5-LRiWQl4qWR_c5gnQ8KHXOSHAe/view?usp=sharing)
